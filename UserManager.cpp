@@ -70,7 +70,7 @@ int UserManager::logInUser()
     string login = "", password = "";
 
     cout << endl << "Podaj login: ";
-    password = AuxiliaryMethods::getLine();
+    login = AuxiliaryMethods::getLine();
 
     vector <User>::iterator itr = users.begin();
     while (itr != users.end())
@@ -103,7 +103,6 @@ int UserManager::logInUser()
 }
 
 void UserManager::changePasswordOfLoggedInUser()
-
 {
     string newPassword = "";
     cout << "Podaj nowe haslo: ";
@@ -118,7 +117,7 @@ void UserManager::changePasswordOfLoggedInUser()
             system("pause");
         }
     }
-    usersFile.saveAllUsersInFile(users);
+    usersFile.changeUserPasswordInFile(newPassword, idOfLoggedInUser);
 }
 
 void UserManager::logOffUser()
