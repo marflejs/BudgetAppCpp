@@ -26,6 +26,26 @@ void UsersFile::addUserToFile(User user)
     xml_users.Save("users.xml");
 }
 
+void UsersFile::changeUserPasswordInFile(string newPassword, int idOfLoggedInUser)
+{
+    CMarkup xml_users;
+    bool usersFileExists = xml_users.Load( "users.xml" );
+    xml_users.FindElem();
+    xml_users.IntoElem();
+
+    while (xml_users.FindElem("User"))
+    {
+        xml_users.FindChildElem("UserId");
+
+        if (atoi(MCD_2PCSZ(xml_users.GetChildData())) == idOfLoggedInUser)
+        {
+            xml_users.FindChildElem("Password");
+            xml_users.SetChildData(newPassword);
+        }
+    }
+    xml_users.Save("users.xml");
+}
+
 vector<User> UsersFile::getUsersFromFile()
 {
     User user;
@@ -70,9 +90,4 @@ vector<User> UsersFile::getUsersFromFile()
         users.push_back(user);
     }
     return users;
-}
-
-void UsersFile::saveAllUsersInFile(vector<User> users)
-{
-
 }
