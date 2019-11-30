@@ -10,11 +10,11 @@ class BudgetApp
 {
     UserManager userManager;
     TransactionManager *transactionManager;
-    const string NAZWA_PLIKU_Z_ADRESATAMI;
+    const string TRANSACTIONS_FILE_NAME;
 public:
-    BudgetApp(string nazwaPlikuZUzytkownikami, string nazwaPlikuZAdresatami)
+    BudgetApp(string nazwaPlikuZUzytkownikami, string transactionsFileName)
         : userManager(nazwaPlikuZUzytkownikami),
-        NAZWA_PLIKU_Z_ADRESATAMI(nazwaPlikuZAdresatami)
+        TRANSACTIONS_FILE_NAME(transactionsFileName)
     {
         transactionManager = NULL;
     };

@@ -13,7 +13,7 @@ void BudgetApp::logInUser()
     userManager.logInUser();
     if (userManager.isUserLoggedIn())
     {
-        transactionManager = new TransactionManager(NAZWA_PLIKU_Z_ADRESATAMI, userManager.getIdOfLoggedInUser());
+        transactionManager = new TransactionManager(TRANSACTIONS_FILE_NAME, userManager.getIdOfLoggedInUser());
     }
 }
 
@@ -71,15 +71,14 @@ char BudgetApp::chooseOptionFromUserMenu()
     system("cls");
     cout << " >>> MENU UZYTKOWNIKA <<<" << endl;
     cout << "---------------------------" << endl;
-    cout << "1. Dodaj adresata" << endl;
-    cout << "2. Wyszukaj po imieniu" << endl;
-    cout << "3. Wyszukaj po nazwisku" << endl;
-    cout << "4. Wyswietl adresatow" << endl;
-    cout << "5. Usun adresata" << endl;
-    cout << "6. Edytuj adresata" << endl;
+    cout << "1. Dodaj transakcje" << endl;
+    cout << "2. Dodaj transakcje" << endl;
+    cout << "3. Bilans z biezacego miesiaca" << endl;
+    cout << "4. Bilans z poprzedniego miesiaca" << endl;
+    cout << "5. Bilans z wybranego okresu" << endl;
     cout << "---------------------------" << endl;
-    cout << "7. Zmien haslo" << endl;
-    cout << "8. Wyloguj sie" << endl;
+    cout << "6. Zmien haslo" << endl;
+    cout << "7. Wyloguj sie" << endl;
     cout << "---------------------------" << endl;
     cout << "Twoj wybor: ";
     choice = AuxiliaryMethods::getChar();

@@ -17,15 +17,59 @@ int AuxiliaryMethods::convertStringToInt(string number)
     return numberInt;
 }
 
-int AuxiliaryMethods::convertDateStringToInt(string number)
+bool AuxiliaryMethods::isLeapYear(int year)
 {
-    cout << "przekonwertowano" << endl;
-    return 1;
+    if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0))
+        return true;
+    else
+        return false;
 }
 
-float AuxiliaryMethods::convertStringToFloat(string amount)
+int AuxiliaryMethods::calculateNumberOfDaysInMonth(int month, int year)
 {
-    return 1.0;
+    int numberOfDays;
+
+    if (month == 4 || month == 6 || month == 9 || month == 11)
+        numberOfDays = 30;
+    else if (month == 2)
+    {
+        if (isLeapYear(year))
+            numberOfDays = 29;
+        else
+            numberOfDays = 28;
+    }
+    else
+        numberOfDays = 31;
+
+    return numberOfDays;
+}
+
+int AuxiliaryMethods::convertDateStringToInt(string dateStringInput)
+{
+    dateStringInput.erase(4, 1);
+    dateStringInput.erase(6, 1);
+    return convertStringToInt(dateStringInput);
+}
+
+string AuxiliaryMethods::convertDateFromIntToString(int dateAsInt)
+{
+    string dateAsString = convertIntToString(dateAsInt);
+    dateAsString.insert(4, "-");
+    dateAsString.insert(7, "-");
+    return dateAsString;
+}
+
+float AuxiliaryMethods::convertStringToFloat(string amountAsString)
+{
+    for(int i = 0; i < amountAsString.length(); i++)
+    {
+        if(amountAsString[i] == ',')
+            amountAsString.replace(i, 1, ".");
+    }
+
+    float amountAsFloat = ::atof(amountAsString.c_str());
+
+    return amountAsFloat;
 }
 
 string AuxiliaryMethods::getLine()

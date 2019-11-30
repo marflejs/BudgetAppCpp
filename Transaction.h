@@ -16,7 +16,7 @@ class Transaction
 public:
     void setTransactionId(int newTransactionId);
     void setUserId(int newUserId);
-    void setDate(int newDate);
+    void setDate(string newDate);
     void setItem(string newItem);
     void setAmount(float newAmount);
 

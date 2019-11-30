@@ -19,7 +19,6 @@ public:
 
     void addUserToFile(User user);
     vector<User> getUsersFromFile();
-    void saveAllUsersInFile(vector<User> users);
     void changeUserPasswordInFile(string newPassword, int idOfLoggedInUser);
 };
 
