@@ -69,7 +69,8 @@ vector<Transaction> TransactionsFile::getTransactionsOfLoggedInUserFromFile(int 
                     transaction.setItem(informationFromFile);
                     break;
                 case 5:
-                    transaction.setAmount(atoi(informationFromFile.c_str()));
+                    transaction.setAmount(informationFromFile);
+                    //bo w pliku siedzi jako string; teraz setAmount dostanie stringa - jak przy inpucie
                     break;
                 }
 
@@ -83,10 +84,6 @@ vector<Transaction> TransactionsFile::getTransactionsOfLoggedInUserFromFile(int 
         transactions.push_back(transaction);
         }
     }
-
-    //cout << "pierwsza data: " << transactions[0].getDate() << endl;
-    //cout << "druga data: " << transactions[1].getDate() << endl;
-    //system("pause");
 
     return transactions;
 }

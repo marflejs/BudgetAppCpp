@@ -14,8 +14,9 @@ void Transaction::setUserId(int newUserId)
         userId = newUserId;
 }
 
-void Transaction::setDate(string newDate)
+bool Transaction::setDate(string newDate)
 {
+    bool isDateOk = true;
     int newYear, newMonth, newDay;
     sscanf(newDate.c_str(), "%4d-%2d-%2d", &newYear, &newMonth, &newDay);
 
@@ -27,9 +28,11 @@ void Transaction::setDate(string newDate)
         date = AuxiliaryMethods::convertDateStringToInt(newDate);
     else
     {
-        cout << "Niepoprawna data";
-        exit(0);
+        cout << "Niepoprawna data. WprowadŸ ponownie" << endl;
+        isDateOk = false;
     }
+
+    return isDateOk;
 }
 
 void Transaction::setItem(string newItem)
@@ -37,9 +40,9 @@ void Transaction::setItem(string newItem)
     item = newItem;
 }
 
-void Transaction::setAmount(float newAmount)
+void Transaction::setAmount(string newAmount)
 {
-    amount = newAmount;
+    amount = AuxiliaryMethods::convertAmountStringToInt(newAmount);
 }
 
 int Transaction::getTransactionId()
@@ -62,7 +65,7 @@ string Transaction::getItem()
     return item;
 }
 
-float Transaction::getAmount()
+int Transaction::getAmount()
 {
     return amount;
 }

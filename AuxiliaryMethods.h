@@ -4,6 +4,8 @@
 #include <iostream>
 #include <sstream>
 #include <algorithm>
+#include <ctime>
+#include <cstdio>
 
 using namespace std;
 
@@ -13,7 +15,7 @@ public:
     static string convertIntToString(int number);
     static int convertStringToInt(string number);
     static int convertDateStringToInt(string number);
-    static float convertStringToFloat(string amountAsString);
+    static int convertAmountStringToInt(string amountAsString);
     static string getLine();
     static char getChar();
     static string changeFirstLetterToCapitalAndOthersToSmallLetters(string text);
@@ -23,6 +25,7 @@ public:
     static bool isLeapYear(int year);
     static int calculateNumberOfDaysInMonth(int month, int year);
     static string convertDateFromIntToString(int dateAsInt);
+    static string getCurrentDate();
 };
 
 #endif

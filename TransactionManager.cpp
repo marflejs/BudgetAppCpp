@@ -2,18 +2,34 @@
 
 Transaction TransactionManager::getNewTransactionData()
 {
+    char choice;
+
     transaction.setTransactionId((transactionsFile.getIdOfLastTransactionFromFile() + 1)); //tu poprawic metode nadawania
     transaction.setUserId(ID_OF_LOGGED_IN_USER);
 
-    cout << "Podaj date: ";
-    transaction.setDate(AuxiliaryMethods::getLine());
+    do
+    {
+        cout << "Czy wprowadzic transakcje z data dzisiejsza[t/n]?" << endl;
+        choice = AuxiliaryMethods::getChar();
+        if(choice == 't')
+        {
+            transaction.setDate(AuxiliaryMethods::getCurrentDate());
+        }
+        if(choice == 'n')
+        {
+            do
+            {
+                cout << "Podaj date: ";
+            } while (transaction.setDate(AuxiliaryMethods::getLine()) != true);
+        }
+    } while (choice != 't' && choice != 'n');
 
     cout << "Podaj czego dotyczy: ";
     transaction.setItem(AuxiliaryMethods::getLine());
     transaction.setItem(AuxiliaryMethods::changeFirstLetterToCapitalAndOthersToSmallLetters(transaction.getItem()));
 
     cout << "Podaj kwote: ";
-    transaction.setAmount(AuxiliaryMethods::convertStringToFloat(AuxiliaryMethods::getLine()));
+    transaction.setAmount(AuxiliaryMethods::getLine());
 
     return transaction;
 }

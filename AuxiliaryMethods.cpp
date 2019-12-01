@@ -59,17 +59,17 @@ string AuxiliaryMethods::convertDateFromIntToString(int dateAsInt)
     return dateAsString;
 }
 
-float AuxiliaryMethods::convertStringToFloat(string amountAsString)
+int AuxiliaryMethods::convertAmountStringToInt(string amountAsString)
 {
     for(int i = 0; i < amountAsString.length(); i++)
     {
-        if(amountAsString[i] == ',')
-            amountAsString.replace(i, 1, ".");
+        if(amountAsString[i] == ',' or amountAsString[i] == '.')
+            amountAsString.erase(i, 1);     //do poprawy: wywalam tylko przecinek, a jak ktos poda bez przecinka?
     }
 
-    float amountAsFloat = ::atof(amountAsString.c_str());
+    int amountAsInt = atoi(amountAsString.c_str()); //* 100 zeby grosze, no ale ze wywalam przecinek, to na razie bez *100 robie
 
-    return amountAsFloat;
+    return amountAsInt;
 }
 
 string AuxiliaryMethods::getLine()
@@ -141,3 +141,22 @@ string AuxiliaryMethods::changeCommaToDot(string text)
     cout << "zmieniono przecinek na kropke" << endl;
     return ".";
 }
+
+string AuxiliaryMethods::getCurrentDate()
+{
+    time_t rawtime;
+    tm* timeinfo;
+    char currentDate [80];
+
+    time(&rawtime);
+    timeinfo = localtime(&rawtime);
+
+    strftime(currentDate,80,"%Y-%m-%d",timeinfo);
+
+    return currentDate;
+}
+
+
+
+
+
