@@ -1,4 +1,6 @@
 #include "Transaction.h"
+#include "AuxiliaryMethods.h"
+#include <cstdio>
 
 void Transaction::setTransactionId(int newTransactionId)
 {
@@ -12,9 +14,25 @@ void Transaction::setUserId(int newUserId)
         userId = newUserId;
 }
 
-void Transaction::setDate(int newDate)
+bool Transaction::setDate(string newDate)
 {
-    date = newDate;
+    bool isDateOk = true;
+    int newYear, newMonth, newDay;
+    sscanf(newDate.c_str(), "%4d-%2d-%2d", &newYear, &newMonth, &newDay);
+
+    if(newYear > 2000 &&
+        newMonth > 0 &&
+        newMonth < 13 &&
+        newDay > 0 &&
+        newDay <= AuxiliaryMethods::calculateNumberOfDaysInMonth(newMonth, newYear))
+        date = AuxiliaryMethods::convertDateStringToInt(newDate);
+    else
+    {
+        cout << "Niepoprawna data. WprowadŸ ponownie" << endl;
+        isDateOk = false;
+    }
+
+    return isDateOk;
 }
 
 void Transaction::setItem(string newItem)
@@ -22,9 +40,9 @@ void Transaction::setItem(string newItem)
     item = newItem;
 }
 
-void Transaction::setAmount(float newAmount)
+void Transaction::setAmount(string newAmount)
 {
-    amount = newAmount;
+    amount = AuxiliaryMethods::convertAmountStringToInt(newAmount);
 }
 
 int Transaction::getTransactionId()
@@ -47,7 +65,7 @@ string Transaction::getItem()
     return item;
 }
 
-float Transaction::getAmount()
+int Transaction::getAmount()
 {
     return amount;
 }

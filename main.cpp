@@ -41,6 +41,7 @@ int main()
                 break;
             case '2':
                 //budgetApp.addExpense();
+                budgetApp.addTransaction();
                 break;
             case '3':
                 budgetApp.showBalanceOfCurrentMonth();
@@ -54,7 +55,7 @@ int main()
             case '6':
                 budgetApp.changePasswordOfLoggedInUser();
                 break;
-            case '8':
+            case '7':
                 budgetApp.logOffUser();
                 break;
             }

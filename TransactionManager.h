@@ -13,9 +13,9 @@ class TransactionManager
 {
     const int ID_OF_LOGGED_IN_USER;
     const string TRANSACTIONS_FILE_NAME;
-    const string TEMPORARY_TRANSACTIONS_FILE_NAME;
     vector<Transaction> transactions;
     TransactionsFile transactionsFile;
+    Transaction transaction;
 
     Transaction getNewTransactionData();
     void showTransaction(Transaction transaction);
@@ -27,6 +27,8 @@ public:
     : transactionsFile(transactionsFileName), ID_OF_LOGGED_IN_USER(idOfLoggedInUser)
     {
         transactions = transactionsFile.getTransactionsOfLoggedInUserFromFile(ID_OF_LOGGED_IN_USER);
+        //cout << transactions[0].getUserId() << endl;
+        //system("pause");
     };
     void addTransaction();
     void showBalanceOfCurrentMonth();

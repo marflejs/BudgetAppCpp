@@ -17,15 +17,59 @@ int AuxiliaryMethods::convertStringToInt(string number)
     return numberInt;
 }
 
-int AuxiliaryMethods::convertDateStringToInt(string number)
+bool AuxiliaryMethods::isLeapYear(int year)
 {
-    cout << "przekonwertowano" << endl;
-    return 1;
+    if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0))
+        return true;
+    else
+        return false;
 }
 
-float AuxiliaryMethods::convertStringToFloat(string amount)
+int AuxiliaryMethods::calculateNumberOfDaysInMonth(int month, int year)
 {
-    return 1.0;
+    int numberOfDays;
+
+    if (month == 4 || month == 6 || month == 9 || month == 11)
+        numberOfDays = 30;
+    else if (month == 2)
+    {
+        if (isLeapYear(year))
+            numberOfDays = 29;
+        else
+            numberOfDays = 28;
+    }
+    else
+        numberOfDays = 31;
+
+    return numberOfDays;
+}
+
+int AuxiliaryMethods::convertDateStringToInt(string dateStringInput)
+{
+    dateStringInput.erase(4, 1);
+    dateStringInput.erase(6, 1);
+    return convertStringToInt(dateStringInput);
+}
+
+string AuxiliaryMethods::convertDateFromIntToString(int dateAsInt)
+{
+    string dateAsString = convertIntToString(dateAsInt);
+    dateAsString.insert(4, "-");
+    dateAsString.insert(7, "-");
+    return dateAsString;
+}
+
+int AuxiliaryMethods::convertAmountStringToInt(string amountAsString)
+{
+    for(int i = 0; i < amountAsString.length(); i++)
+    {
+        if(amountAsString[i] == ',' or amountAsString[i] == '.')
+            amountAsString.erase(i, 1);     //do poprawy: wywalam tylko przecinek, a jak ktos poda bez przecinka?
+    }
+
+    int amountAsInt = atoi(amountAsString.c_str()); //* 100 zeby grosze, no ale ze wywalam przecinek, to na razie bez *100 robie
+
+    return amountAsInt;
 }
 
 string AuxiliaryMethods::getLine()
@@ -97,3 +141,22 @@ string AuxiliaryMethods::changeCommaToDot(string text)
     cout << "zmieniono przecinek na kropke" << endl;
     return ".";
 }
+
+string AuxiliaryMethods::getCurrentDate()
+{
+    time_t rawtime;
+    tm* timeinfo;
+    char currentDate [80];
+
+    time(&rawtime);
+    timeinfo = localtime(&rawtime);
+
+    strftime(currentDate,80,"%Y-%m-%d",timeinfo);
+
+    return currentDate;
+}
+
+
+
+
+
