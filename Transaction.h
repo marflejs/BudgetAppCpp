@@ -19,7 +19,7 @@ public:
     void setAmount(string newAmount);
 
     int getUserId();
-    int getDate();
+    int getDate() const;
     string getItem();
     int getAmount();
 };

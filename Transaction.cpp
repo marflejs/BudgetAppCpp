@@ -22,7 +22,7 @@ bool Transaction::setDate(string newDate)
         date = AuxiliaryMethods::convertDateStringToInt(newDate);
     else
     {
-        cout << "Niepoprawna data. WprowadŸ ponownie" << endl;
+        cout << "Niepoprawna data. Wprowadz ponownie" << endl;
         isDateOk = false;
     }
 
@@ -44,7 +44,7 @@ int Transaction::getUserId()
     return userId;
 }
 
-int Transaction::getDate()
+int Transaction::getDate() const
 {
     return date;
 }

@@ -114,31 +114,85 @@ void TransactionManager::addExpense()
     system("pause");
 }
 
-float TransactionManager::calculateBalanceSheetTotal()
-{
-    cout << "policzono sume" << endl;
-    return 1.0;
-}
-
-void TransactionManager::sortTransactionsByDate()
-{
-    cout << "posortowano" << endl;
-}
-
 void TransactionManager::showBalanceOfCurrentMonth()
 {
-    cout << "Balance of currenth month" << endl;
-    system("pause");
+    string currentDate = AuxiliaryMethods::getCurrentDate();
+    beginDate = AuxiliaryMethods::convertDateStringToInt(currentDate.replace(8, 2, "01"));
+    endDate = AuxiliaryMethods::convertDateStringToInt(currentDate.replace(8, 2, "31"));
+
+    showBalance();
 }
 
 void TransactionManager::showBalanceOfLastMonth()
 {
-    cout << "Balance of currenth month" << endl;
-    system("pause");
+    string currentDate = AuxiliaryMethods::getCurrentDate();
+    //sposob na odczytanie samego miesiaca i podmiana go na poprzedni
+
+
+    showBalance();
 }
 
 void TransactionManager::showBalanceOfChosenTimeRange()
 {
-    cout << "Balance of currenth month" << endl;
+    //a tutaj ma wczytywac od uzytkownika 2 dane - w poprawnym formacie - isDateOk?
+
+    showBalance();
+}
+
+void TransactionManager::showBalance()
+{
+    int sumOfIncomes = 0;
+    int sumOfExpenses = 0;
+
+    for (vector<Income>::iterator itr = incomes.begin(); itr != incomes.end(); itr++)
+        if (itr -> getDate() >= beginDate && itr -> getDate() <= endDate)
+            balanceIncomes.push_back(*itr);
+
+    for (vector<Expense>::iterator itr = expenses.begin(); itr != expenses.end(); itr++)
+        if (itr -> getDate() >= beginDate && itr -> getDate() <= endDate)
+            balanceExpenses.push_back(*itr);
+
+    sort(balanceIncomes.begin(), balanceIncomes.end(), less_than_key());
+    sort(balanceExpenses.begin(), balanceExpenses.end(), less_than_key());
+
+    //if puste poka¿ info ¿e brak i daj press any key - lae moze byc np. brak expenses i same incomes
+
+    system("cls");
+
+    cout << "----------------PRZYCHODY----------------" << endl;
+    cout << "Data         Wartosc    Opis" << endl << endl;
+    for(int i = 0; i < balanceIncomes.size(); i++)
+    {
+        cout << AuxiliaryMethods::convertDateFromIntToString(balanceIncomes[i].getDate()) << "   " <<
+             AuxiliaryMethods::convertAmountIntToString(balanceIncomes[i].getAmount()) << "   " <<
+             balanceIncomes[i].getItem() << endl;
+    }
+
+    cout << endl << endl << "----------------WYDATKI----------------" << endl;
+    cout << "Data         Wartosc    Opis" << endl << endl;
+
+    for(int i = 0; i < balanceExpenses.size(); i++)
+    {
+        cout << AuxiliaryMethods::convertDateFromIntToString(balanceExpenses[i].getDate()) << "   " <<
+             AuxiliaryMethods::convertAmountIntToString(balanceExpenses[i].getAmount()) << "   " <<
+             balanceExpenses[i].getItem() << endl;
+    }
+
+    //---------------liczenie--------------
+    for(int i = 0; i < balanceIncomes.size(); i++)
+    {
+        sumOfIncomes += balanceIncomes[i].getAmount();
+    }
+
+    for(int i = 0; i < balanceExpenses.size(); i++)
+    {
+        sumOfExpenses += balanceExpenses[i].getAmount();
+    }
+
+    cout << endl << endl << "------------PODSUMOWANIE------------" << endl;
+    cout << endl << "SUMA PRZYCHODOW: " << (float)sumOfIncomes/100.0 << endl;
+    cout << "SUMA WYDATKOW: " << (float)sumOfExpenses/100.0 << endl << endl;
+    cout << "BILANS OKRESU: " << (float)(sumOfIncomes - sumOfExpenses)/100.0 << endl << endl;
+
     system("pause");
 }
