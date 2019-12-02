@@ -61,15 +61,31 @@ string AuxiliaryMethods::convertDateFromIntToString(int dateAsInt)
 
 int AuxiliaryMethods::convertAmountStringToInt(string amountAsString)
 {
-    for(int i = 0; i < amountAsString.length(); i++)
+    if(amountAsString.find(',') != string::npos || amountAsString.find('.') != string::npos)
     {
-        if(amountAsString[i] == ',' or amountAsString[i] == '.')
-            amountAsString.erase(i, 1);     //do poprawy: wywalam tylko przecinek, a jak ktos poda bez przecinka?
+        for(int i = 0; i < amountAsString.length(); i++)
+        {
+            if(amountAsString[i] == '.' || amountAsString[i] == ',')
+            {
+                amountAsString.erase(i, 1);
+                break;
+            }
+        }
     }
+    else
+        amountAsString += "00";
 
-    int amountAsInt = atoi(amountAsString.c_str()); //* 100 zeby grosze, no ale ze wywalam przecinek, to na razie bez *100 robie
+    int amountAsInt = atoi(amountAsString.c_str());
 
     return amountAsInt;
+}
+
+string AuxiliaryMethods::convertAmountIntToString(int amountAsInt)
+{
+    string amountAsString = convertIntToString(amountAsInt);
+    amountAsString.insert(amountAsString.length() - 2, ".");
+    return amountAsString;
+
 }
 
 string AuxiliaryMethods::getLine()
@@ -134,12 +150,6 @@ string AuxiliaryMethods::getNumber(string text, int charPosition)
         charPosition ++;
     }
     return number;
-}
-
-string AuxiliaryMethods::changeCommaToDot(string text)
-{
-    cout << "zmieniono przecinek na kropke" << endl;
-    return ".";
 }
 
 string AuxiliaryMethods::getCurrentDate()

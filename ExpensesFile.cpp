@@ -21,7 +21,7 @@ bool ExpensesFile::addExpenseToFile(Expense expense)
     xml_expenses.AddElem("UserId", expense.getUserId());
     xml_expenses.AddElem("Date", AuxiliaryMethods::convertDateFromIntToString(expense.getDate()));
     xml_expenses.AddElem("Item", expense.getItem());
-    xml_expenses.AddElem("Amount", expense.getAmount());
+    xml_expenses.AddElem("Amount", AuxiliaryMethods::convertAmountIntToString(expense.getAmount()));
 
     xml_expenses.Save("expenses.xml");
 

@@ -21,7 +21,7 @@ bool IncomesFile::addIncomeToFile(Income income)
     xml_incomes.AddElem("UserId", income.getUserId());
     xml_incomes.AddElem("Date", AuxiliaryMethods::convertDateFromIntToString(income.getDate()));
     xml_incomes.AddElem("Item", income.getItem());
-    xml_incomes.AddElem("Amount", income.getAmount());
+    xml_incomes.AddElem("Amount", AuxiliaryMethods::convertAmountIntToString(income.getAmount()));
 
     xml_incomes.Save("incomes.xml");
 
