@@ -94,6 +94,7 @@ char BudgetApp::chooseOptionFromUserMenu()
     cout << "7. Wyloguj sie" << endl;
     cout << "---------------------------" << endl;
     cout << "Twoj wybor: ";
+
     choice = AuxiliaryMethods::getChar();
 
     return choice;
