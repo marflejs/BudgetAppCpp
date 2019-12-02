@@ -7,15 +7,14 @@
 
 #include "User.h"
 #include "AuxiliaryMethods.h"
-#include "XMLFile.h"
 
 using namespace std;
 
-class UsersFile : public XMLFile
+class UsersFile
 {
-
+    const string FILE_NAME;
 public:
-    UsersFile(string fileName) : XMLFile(fileName) {};
+    UsersFile(string fileName) : FILE_NAME(fileName) {};
 
     void addUserToFile(User user);
     vector<User> getUsersFromFile();

@@ -4,33 +4,52 @@
 #include <iostream>
 #include <vector>
 
-#include "Transaction.h"
-#include "TransactionsFile.h"
+//#include "Transaction.h"
+//#include "TransactionsFile.h"
+#include "IncomesFile.h"
+#include "ExpensesFile.h"
+#include "Income.h"
+#include "Expense.h"
 
 using namespace std;
 
 class TransactionManager
 {
     const int ID_OF_LOGGED_IN_USER;
-    const string TRANSACTIONS_FILE_NAME;
-    vector<Transaction> transactions;
-    TransactionsFile transactionsFile;
-    Transaction transaction;
+    const string INCOMES_FILE_NAME;
+    const string EXPENSES_FILE_NAME;
+    //vector<Transaction> transactions;
+    vector<Income> incomes;
+    vector<Expense> expenses;
 
-    Transaction getNewTransactionData();
-    void showTransaction(Transaction transaction);
+    IncomesFile incomesFile;
+    ExpensesFile expensesFile;
+
+    Transaction transaction;
+    Income income;
+    Expense expense;
+
+    Income getNewIncomeData();
+    Expense getNewExpenseData();
+
+
+    //tych w sumie jeszcze nie uzywam
+    //void showTransaction(Transaction transaction);
     float calculateBalanceSheetTotal();
     void sortTransactionsByDate();
 
 public:
-    TransactionManager(string transactionsFileName, int idOfLoggedInUser)
-    : transactionsFile(transactionsFileName), ID_OF_LOGGED_IN_USER(idOfLoggedInUser)
+    TransactionManager(string incomesFileName, string expensesFileName, int idOfLoggedInUser)
+    : incomesFile(INCOMES_FILE_NAME), expensesFile(EXPENSES_FILE_NAME), ID_OF_LOGGED_IN_USER(idOfLoggedInUser)
     {
-        transactions = transactionsFile.getTransactionsOfLoggedInUserFromFile(ID_OF_LOGGED_IN_USER);
-        //cout << transactions[0].getUserId() << endl;
-        //system("pause");
+        incomes = incomesFile.getIncomesOfLoggedInUserFromFile(ID_OF_LOGGED_IN_USER),
+        expenses = expensesFile.getExpensesOfLoggedInUserFromFile(ID_OF_LOGGED_IN_USER);
     };
-    void addTransaction();
+
+    void addIncome();
+    void addExpense();
+
+    //te jeszcze nie uzywane
     void showBalanceOfCurrentMonth();
     void showBalanceOfLastMonth();
     void showBalanceOfChosenTimeRange();

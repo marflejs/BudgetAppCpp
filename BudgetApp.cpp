@@ -13,7 +13,7 @@ void BudgetApp::logInUser()
     userManager.logInUser();
     if (userManager.isUserLoggedIn())
     {
-        transactionManager = new TransactionManager(TRANSACTIONS_FILE_NAME, userManager.getIdOfLoggedInUser());
+        transactionManager = new TransactionManager(INCOMES_FILE_NAME, EXPENSES_FILE_NAME, userManager.getIdOfLoggedInUser());
     }
 }
 
@@ -29,15 +29,28 @@ void BudgetApp::logOffUser()
     transactionManager = NULL;
 }
 
-void BudgetApp::addTransaction()
+void BudgetApp::addIncome()
 {
     if (userManager.isUserLoggedIn())
     {
-        transactionManager -> addTransaction();
+        transactionManager -> addIncome();
     }
     else
     {
-        cout << "Aby dodac adresata, nalezy najpierw sie zalogowac" << endl;
+        cout << "Aby dodac przychod, nalezy najpierw sie zalogowac" << endl;
+        system("pause");
+    }
+}
+
+void BudgetApp::addExpense()
+{
+    if (userManager.isUserLoggedIn())
+    {
+        transactionManager -> addExpense();
+    }
+    else
+    {
+        cout << "Aby dodac wydatek, nalezy najpierw sie zalogowac" << endl;
         system("pause");
     }
 }
@@ -71,8 +84,8 @@ char BudgetApp::chooseOptionFromUserMenu()
     system("cls");
     cout << " >>> MENU UZYTKOWNIKA <<<" << endl;
     cout << "---------------------------" << endl;
-    cout << "1. Dodaj transakcje" << endl;
-    cout << "2. Dodaj transakcje" << endl;
+    cout << "1. Dodaj przychod" << endl;
+    cout << "2. Dodaj wydatek" << endl;
     cout << "3. Bilans z biezacego miesiaca" << endl;
     cout << "4. Bilans z poprzedniego miesiaca" << endl;
     cout << "5. Bilans z wybranego okresu" << endl;

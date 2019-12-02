@@ -5,7 +5,7 @@
 
 int main()
 {
-    BudgetApp budgetApp("Users.xml", "Transactions.xml");
+    BudgetApp budgetApp("Users.xml", "Incomes.xml", "Expenses.xml");
     char choice;
     while(true)
     {
@@ -36,12 +36,10 @@ int main()
             switch (choice)
             {
             case '1':
-                //budgetApp.addIncome();
-                budgetApp.addTransaction();
+                budgetApp.addIncome();
                 break;
             case '2':
-                //budgetApp.addExpense();
-                budgetApp.addTransaction();
+                budgetApp.addExpense();
                 break;
             case '3':
                 budgetApp.showBalanceOfCurrentMonth();

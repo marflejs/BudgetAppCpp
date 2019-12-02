@@ -10,11 +10,13 @@ class BudgetApp
 {
     UserManager userManager;
     TransactionManager *transactionManager;
-    const string TRANSACTIONS_FILE_NAME;
+    const string INCOMES_FILE_NAME;
+    const string EXPENSES_FILE_NAME;
 public:
-    BudgetApp(string nazwaPlikuZUzytkownikami, string transactionsFileName)
-        : userManager(nazwaPlikuZUzytkownikami),
-        TRANSACTIONS_FILE_NAME(transactionsFileName)
+    BudgetApp(string usersFileName, string incomesFileName, string expensesFileName)
+        : userManager(usersFileName),
+        INCOMES_FILE_NAME(incomesFileName),
+        EXPENSES_FILE_NAME(expensesFileName)
     {
         transactionManager = NULL;
     };
@@ -29,7 +31,8 @@ public:
     void logInUser();
     void changePasswordOfLoggedInUser();
     void logOffUser();
-    void addTransaction();
+    void addIncome();
+    void addExpense();
     bool isUserLoggedIn();
     char chooseOptionFromMainMenu();
     char chooseOptionFromUserMenu();

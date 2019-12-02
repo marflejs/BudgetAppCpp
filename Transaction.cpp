@@ -2,12 +2,6 @@
 #include "AuxiliaryMethods.h"
 #include <cstdio>
 
-void Transaction::setTransactionId(int newTransactionId)
-{
-    if (newTransactionId > 0)
-        transactionId = newTransactionId;
-}
-
 void Transaction::setUserId(int newUserId)
 {
     if (newUserId > 0)
@@ -43,11 +37,6 @@ void Transaction::setItem(string newItem)
 void Transaction::setAmount(string newAmount)
 {
     amount = AuxiliaryMethods::convertAmountStringToInt(newAmount);
-}
-
-int Transaction::getTransactionId()
-{
-    return transactionId;
 }
 
 int Transaction::getUserId()
