@@ -14,12 +14,12 @@ class Transaction
 
 public:
     void setUserId(int newUserId);
-    bool setDate(string newDate);
+    void setDate(string newDate);
     void setItem(string newItem);
     void setAmount(string newAmount);
 
     int getUserId();
-    int getDate();
+    int getDate() const;
     string getItem();
     int getAmount();
 };

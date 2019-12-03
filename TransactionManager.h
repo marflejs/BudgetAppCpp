@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector>
+#include <algorithm>
 
 //#include "Transaction.h"
 //#include "TransactionsFile.h"
@@ -15,6 +16,14 @@ using namespace std;
 
 class TransactionManager
 {
+    struct less_than_key
+    {
+        inline bool operator() (const Transaction& struct1, const Transaction& struct2)
+        {
+            return (struct1.getDate() < struct2.getDate());
+        }
+    };
+
     const int ID_OF_LOGGED_IN_USER;
     const string INCOMES_FILE_NAME;
     const string EXPENSES_FILE_NAME;
@@ -32,11 +41,10 @@ class TransactionManager
     Income getNewIncomeData();
     Expense getNewExpenseData();
 
-
-    //tych w sumie jeszcze nie uzywam
-    //void showTransaction(Transaction transaction);
-    float calculateBalanceSheetTotal();
-    void sortTransactionsByDate();
+    vector<Income> balanceIncomes;
+    vector<Expense> balanceExpenses;
+    void showBalance();
+    int beginDate, endDate;
 
 public:
     TransactionManager(string incomesFileName, string expensesFileName, int idOfLoggedInUser)
@@ -49,7 +57,6 @@ public:
     void addIncome();
     void addExpense();
 
-    //te jeszcze nie uzywane
     void showBalanceOfCurrentMonth();
     void showBalanceOfLastMonth();
     void showBalanceOfChosenTimeRange();

@@ -3,6 +3,7 @@
 Income TransactionManager::getNewIncomeData()
 {
     char choice;
+    string newDate = "";
 
     income.setIncomeId((incomesFile.getIdOfLastTransactionFromFile() + 1)); //tu poprawic metode nadawania
     income.setUserId(ID_OF_LOGGED_IN_USER);
@@ -20,7 +21,9 @@ Income TransactionManager::getNewIncomeData()
             do
             {
                 cout << "Podaj date: ";
-            } while (income.setDate(AuxiliaryMethods::getLine()) != true);
+                newDate = AuxiliaryMethods::getLine();
+                income.setDate(newDate);
+            } while (AuxiliaryMethods::isDateOk(newDate) != true);
         }
     } while (choice != 't' && choice != 'n');
 
@@ -54,7 +57,8 @@ Expense TransactionManager::getNewExpenseData()
             do
             {
                 cout << "Podaj date: ";
-            } while (expense.setDate(AuxiliaryMethods::getLine()) != true);
+                expense.setDate(AuxiliaryMethods::getLine());
+            } while (AuxiliaryMethods::isDateOk(AuxiliaryMethods::getLine()) != true);
         }
     } while (choice != 't' && choice != 'n');
 
@@ -67,15 +71,7 @@ Expense TransactionManager::getNewExpenseData()
 
     return expense;
 }
-/*
-void TransactionManager::showTransaction(Transaction transaction)
-{
-    cout << endl << "Id transakcji:    " << transaction.getTransactionId() << endl;
-    cout << "Data:         " << transaction.getDate() << endl;
-    cout << "Dotyczy:      " << transaction.getItem() << endl;
-    cout << "Kwota:        " << transaction.getAmount() << endl;
-}
-*/
+
 void TransactionManager::addIncome()
 {
     Income income;
@@ -114,31 +110,115 @@ void TransactionManager::addExpense()
     system("pause");
 }
 
-float TransactionManager::calculateBalanceSheetTotal()
-{
-    cout << "policzono sume" << endl;
-    return 1.0;
-}
-
-void TransactionManager::sortTransactionsByDate()
-{
-    cout << "posortowano" << endl;
-}
-
 void TransactionManager::showBalanceOfCurrentMonth()
 {
-    cout << "Balance of currenth month" << endl;
-    system("pause");
+    string currentDate = AuxiliaryMethods::getCurrentDate();
+    beginDate = AuxiliaryMethods::convertDateStringToInt(currentDate.replace(8, 2, "01"));
+    endDate = AuxiliaryMethods::convertDateStringToInt(currentDate.replace(8, 2, "31"));
+
+    showBalance();
 }
 
 void TransactionManager::showBalanceOfLastMonth()
 {
-    cout << "Balance of currenth month" << endl;
-    system("pause");
+    string currentDate = AuxiliaryMethods::getCurrentDate();
+
+    int lastMonth = AuxiliaryMethods::convertStringToInt(currentDate.substr(5, 2)) - 1; //tu sie chrzani
+
+    int yearOfLastMonth = AuxiliaryMethods::convertStringToInt(currentDate.substr(0, 4));
+
+    if(lastMonth == 0)
+    {
+        lastMonth = 12;
+        yearOfLastMonth -= 1;
+    }
+
+    beginDate = 10000 * yearOfLastMonth + 100 * lastMonth + 1;
+    endDate = beginDate + 30;
+
+    showBalance();
 }
 
 void TransactionManager::showBalanceOfChosenTimeRange()
 {
-    cout << "Balance of currenth month" << endl;
+    string inputDate = "";
+
+    do
+    {
+        cout << "Podaj date poczatkowa: ";
+        inputDate = AuxiliaryMethods::getLine();
+    } while (AuxiliaryMethods::isDateOk(inputDate) != true);
+
+    beginDate = AuxiliaryMethods::convertDateStringToInt(inputDate);
+
+    do
+    {
+        cout << "Podaj date koncowa: ";
+        inputDate = AuxiliaryMethods::getLine();
+    } while (AuxiliaryMethods::isDateOk(inputDate) != true);
+
+    endDate = AuxiliaryMethods::convertDateStringToInt(inputDate);
+
+    showBalance();
+}
+
+void TransactionManager::showBalance()
+{
+    int sumOfIncomes = 0;
+    int sumOfExpenses = 0;
+
+    for (vector<Income>::iterator itr = incomes.begin(); itr != incomes.end(); itr++)
+        if (itr -> getDate() >= beginDate && itr -> getDate() <= endDate)
+            balanceIncomes.push_back(*itr);
+
+    for (vector<Expense>::iterator itr = expenses.begin(); itr != expenses.end(); itr++)
+        if (itr -> getDate() >= beginDate && itr -> getDate() <= endDate)
+            balanceExpenses.push_back(*itr);
+
+    sort(balanceIncomes.begin(), balanceIncomes.end(), less_than_key());
+    sort(balanceExpenses.begin(), balanceExpenses.end(), less_than_key());
+
+    //if puste pokaz info ze brak i daj press any key - lae moze byc np. brak expenses i same incomes
+
+    system("cls");
+
+    cout << "----------------PRZYCHODY----------------" << endl;
+    cout << "Data         Wartosc    Opis" << endl << endl;
+    for(int i = 0; i < balanceIncomes.size(); i++)
+    {
+        cout << AuxiliaryMethods::convertDateFromIntToString(balanceIncomes[i].getDate()) << "   " <<
+             AuxiliaryMethods::convertAmountIntToString(balanceIncomes[i].getAmount()) << "   " <<
+             balanceIncomes[i].getItem() << endl;
+    }
+
+    cout << endl << endl << "----------------WYDATKI----------------" << endl;
+    cout << "Data         Wartosc    Opis" << endl << endl;
+
+    for(int i = 0; i < balanceExpenses.size(); i++)
+    {
+        cout << AuxiliaryMethods::convertDateFromIntToString(balanceExpenses[i].getDate()) << "   " <<
+             AuxiliaryMethods::convertAmountIntToString(balanceExpenses[i].getAmount()) << "   " <<
+             balanceExpenses[i].getItem() << endl;
+    }
+
+    //---------------liczenie--------------
+    for(int i = 0; i < balanceIncomes.size(); i++)
+    {
+        sumOfIncomes += balanceIncomes[i].getAmount();
+    }
+
+    for(int i = 0; i < balanceExpenses.size(); i++)
+    {
+        sumOfExpenses += balanceExpenses[i].getAmount();
+    }
+
+    cout << endl << endl << "------------PODSUMOWANIE------------" << endl;
+    cout << endl << "SUMA PRZYCHODOW: " << (float)sumOfIncomes/100.0 << endl;
+    cout << "SUMA WYDATKOW: " << (float)sumOfExpenses/100.0 << endl << endl;
+    cout << "BILANS OKRESU: " << (float)(sumOfIncomes - sumOfExpenses)/100.0 << endl << endl;
+
+    balanceIncomes.clear();
+    balanceExpenses.clear();
+
     system("pause");
 }
