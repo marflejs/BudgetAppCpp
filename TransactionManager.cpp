@@ -5,7 +5,7 @@ Income TransactionManager::getNewIncomeData()
     char choice;
     string newDate = "";
 
-    income.setIncomeId((incomesFile.getIdOfLastTransactionFromFile() + 1)); //tu poprawic metode nadawania
+    income.setIncomeId((incomesFile.getIdOfLastTransactionFromFile() + 1));
     income.setUserId(ID_OF_LOGGED_IN_USER);
 
     do
@@ -41,7 +41,7 @@ Expense TransactionManager::getNewExpenseData()
 {
     char choice;
 
-    expense.setExpenseId((expensesFile.getIdOfLastTransactionFromFile() + 1)); //tu poprawic metode nadawania
+    expense.setExpenseId((expensesFile.getIdOfLastTransactionFromFile() + 1));
     expense.setUserId(ID_OF_LOGGED_IN_USER);
 
     do
@@ -123,7 +123,7 @@ void TransactionManager::showBalanceOfLastMonth()
 {
     string currentDate = AuxiliaryMethods::getCurrentDate();
 
-    int lastMonth = AuxiliaryMethods::convertStringToInt(currentDate.substr(5, 2)) - 1; //tu sie chrzani
+    int lastMonth = AuxiliaryMethods::convertStringToInt(currentDate.substr(5, 2)) - 1;
 
     int yearOfLastMonth = AuxiliaryMethods::convertStringToInt(currentDate.substr(0, 4));
 
@@ -178,8 +178,6 @@ void TransactionManager::showBalance()
     sort(balanceIncomes.begin(), balanceIncomes.end(), less_than_key());
     sort(balanceExpenses.begin(), balanceExpenses.end(), less_than_key());
 
-    //if puste pokaz info ze brak i daj press any key - lae moze byc np. brak expenses i same incomes
-
     system("cls");
 
     cout << "----------------PRZYCHODY----------------" << endl;
@@ -201,7 +199,6 @@ void TransactionManager::showBalance()
              balanceExpenses[i].getItem() << endl;
     }
 
-    //---------------liczenie--------------
     for(int i = 0; i < balanceIncomes.size(); i++)
     {
         sumOfIncomes += balanceIncomes[i].getAmount();

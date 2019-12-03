@@ -59,9 +59,9 @@ vector<User> UsersFile::getUsersFromFile()
     xml_users.FindElem();
     xml_users.IntoElem();
 
-    while (xml_users.FindElem("User"))  //tak dlugo, jak ma userow w pliku
+    while (xml_users.FindElem("User"))
     {
-        while (xml_users.FindChildElem())   //tak dlugo, jak dlugo znajduje dzieci danego usera
+        while (xml_users.FindChildElem())
         {
             informationFromFile = xml_users.GetChildData();
 

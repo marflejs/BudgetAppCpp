@@ -3,10 +3,7 @@
 
 #include <iostream>
 #include <vector>
-#include <algorithm>
 
-//#include "Transaction.h"
-//#include "TransactionsFile.h"
 #include "IncomesFile.h"
 #include "ExpensesFile.h"
 #include "Income.h"
@@ -27,22 +24,19 @@ class TransactionManager
     const int ID_OF_LOGGED_IN_USER;
     const string INCOMES_FILE_NAME;
     const string EXPENSES_FILE_NAME;
-    //vector<Transaction> transactions;
-    vector<Income> incomes;
-    vector<Expense> expenses;
 
-    IncomesFile incomesFile;
-    ExpensesFile expensesFile;
-
-    Transaction transaction;
     Income income;
-    Expense expense;
-
+    vector<Income> incomes;
+    IncomesFile incomesFile;
     Income getNewIncomeData();
-    Expense getNewExpenseData();
-
     vector<Income> balanceIncomes;
+
+    Expense expense;
+    vector<Expense> expenses;
+    ExpensesFile expensesFile;
+    Expense getNewExpenseData();
     vector<Expense> balanceExpenses;
+
     void showBalance();
     int beginDate, endDate;
 

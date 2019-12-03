@@ -1,6 +1,5 @@
 #include "Transaction.h"
 #include "AuxiliaryMethods.h"
-#include <cstdio>
 
 void Transaction::setUserId(int newUserId)
 {

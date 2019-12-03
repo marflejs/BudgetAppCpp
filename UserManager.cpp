@@ -1,5 +1,4 @@
 #include "UserManager.h"
-#include "AuxiliaryMethods.h"
 
 User UserManager::getNewUserData()
 {
@@ -136,9 +135,4 @@ bool UserManager::isUserLoggedIn()
 int UserManager::getIdOfLoggedInUser()
 {
     return idOfLoggedInUser;
-}
-
-void UserManager::setIdOfLoggedInUser(int newId)
-{
-    idOfLoggedInUser = newId;
 }
