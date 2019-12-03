@@ -1,5 +1,31 @@
 #include "AuxiliaryMethods.h"
 
+string AuxiliaryMethods::getLine()
+{
+    string input = "";
+    getline(cin, input);
+    return input;
+}
+
+char AuxiliaryMethods::getChar()
+{
+    string input = "";
+    char character = {0};
+
+    while (true)
+    {
+        getline(cin, input);
+
+        if (input.length() == 1)
+        {
+            character = input[0];
+            break;
+        }
+        cout << "To nie jest pojedynczy znak. Wpisz ponownie." << endl;
+    }
+    return character;
+}
+
 string AuxiliaryMethods::convertIntToString(int number)
 {
     ostringstream ss;
@@ -15,6 +41,44 @@ int AuxiliaryMethods::convertStringToInt(string number)
     iss >> numberInt;
 
     return numberInt;
+}
+
+int AuxiliaryMethods::convertAmountStringToInt(string amountAsString)
+{
+    if(amountAsString.find(',') != string::npos || amountAsString.find('.') != string::npos)
+    {
+        for(int i = 0; i < amountAsString.length(); i++)
+        {
+            if(amountAsString[i] == '.' || amountAsString[i] == ',')
+            {
+                amountAsString.erase(i, 1);
+                break;
+            }
+        }
+    }
+    else
+        amountAsString += "00";
+
+    int amountAsInt = atoi(amountAsString.c_str());
+
+    return amountAsInt;
+}
+
+string AuxiliaryMethods::convertAmountIntToString(int amountAsInt)
+{
+    string amountAsString = convertIntToString(amountAsInt);
+    amountAsString.insert(amountAsString.length() - 2, ".");
+    return amountAsString;
+}
+
+string AuxiliaryMethods::changeFirstLetterToCapitalAndOthersToSmallLetters(string text)
+{
+    if (!text.empty())
+    {
+        transform(text.begin(), text.end(), text.begin(), ::tolower);
+        text[0] = toupper(text[0]);
+    }
+    return text;
 }
 
 bool AuxiliaryMethods::isLeapYear(int year)
@@ -59,99 +123,6 @@ string AuxiliaryMethods::convertDateFromIntToString(int dateAsInt)
     return dateAsString;
 }
 
-int AuxiliaryMethods::convertAmountStringToInt(string amountAsString)
-{
-    if(amountAsString.find(',') != string::npos || amountAsString.find('.') != string::npos)
-    {
-        for(int i = 0; i < amountAsString.length(); i++)
-        {
-            if(amountAsString[i] == '.' || amountAsString[i] == ',')
-            {
-                amountAsString.erase(i, 1);
-                break;
-            }
-        }
-    }
-    else
-        amountAsString += "00";
-
-    int amountAsInt = atoi(amountAsString.c_str());
-
-    return amountAsInt;
-}
-
-string AuxiliaryMethods::convertAmountIntToString(int amountAsInt)
-{
-    string amountAsString = convertIntToString(amountAsInt);
-    amountAsString.insert(amountAsString.length() - 2, ".");
-    return amountAsString;
-
-}
-
-string AuxiliaryMethods::getLine()
-{
-    string input = "";
-    getline(cin, input);
-    return input;
-}
-
-char AuxiliaryMethods::getChar()
-{
-    string input = "";
-    char character = {0};
-
-    while (true)
-    {
-        getline(cin, input);
-
-        if (input.length() == 1)
-        {
-            character = input[0];
-            break;
-        }
-        cout << "To nie jest pojedynczy znak. Wpisz ponownie." << endl;
-    }
-    return character;
-}
-
-string AuxiliaryMethods::changeFirstLetterToCapitalAndOthersToSmallLetters(string text)
-{
-    if (!text.empty())
-    {
-        transform(text.begin(), text.end(), text.begin(), ::tolower);
-        text[0] = toupper(text[0]);
-    }
-    return text;
-}
-
-int AuxiliaryMethods::getInteger()
-{
-    string input = "";
-    int number = 0;
-
-    while (true)
-    {
-        getline(cin, input);
-
-        stringstream myStream(input);
-        if (myStream >> number)
-            break;
-        cout << "To nie jest number. Wpisz ponownie. " << endl;
-    }
-    return number;
-}
-
-string AuxiliaryMethods::getNumber(string text, int charPosition)
-{
-    string number = "";
-    while(isdigit(text[charPosition]) == true)
-    {
-        number += text[charPosition];
-        charPosition ++;
-    }
-    return number;
-}
-
 string AuxiliaryMethods::getCurrentDate()
 {
     time_t rawtime;
@@ -160,7 +131,6 @@ string AuxiliaryMethods::getCurrentDate()
 
     time(&rawtime);
     timeinfo = localtime(&rawtime);
-
     strftime(currentDate,80,"%Y-%m-%d",timeinfo);
 
     return currentDate;
@@ -181,7 +151,6 @@ bool AuxiliaryMethods::isDateOk(string newDate)
             cout << "Niepoprawna data. Wprowadz ponownie" << endl;
             isDateOk = false;
         }
-
     return isDateOk;
 }
 

@@ -3,7 +3,6 @@
 
 #include "User.h"
 #include "UsersFile.h"
-#include "AuxiliaryMethods.h"
 
 using namespace std;
 
@@ -29,7 +28,6 @@ public:
     void logOffUser();
     bool isUserLoggedIn();
     int getIdOfLoggedInUser();
-    void setIdOfLoggedInUser(int newId);
 };
 
 #endif

@@ -25,7 +25,7 @@ bool ExpensesFile::addExpenseToFile(Expense expense)
 
     xml_expenses.Save("expenses.xml");
 
-    return true;    //do poprawy, uwzglednic spr czy plik good
+    return true;
 }
 
 vector<Expense> ExpensesFile::getExpensesOfLoggedInUserFromFile(int idOfLoggedUser)
@@ -47,7 +47,7 @@ vector<Expense> ExpensesFile::getExpensesOfLoggedInUserFromFile(int idOfLoggedUs
 
         if (atoi(MCD_2PCSZ(xml_expenses.GetChildData())) == idOfLoggedUser)
         {
-            xml_expenses.ResetChildPos(); //child byl na user id, a chce od poczatku - od transaction id
+            xml_expenses.ResetChildPos();
 
             while (xml_expenses.FindChildElem())
             {
@@ -63,14 +63,12 @@ vector<Expense> ExpensesFile::getExpensesOfLoggedInUserFromFile(int idOfLoggedUs
                     break;
                 case 3:
                     expense.setDate(informationFromFile);
-                    //bo w pliku siedzi jako string; teraz setDate dostanie stringa - jak przy inpucie
                     break;
                 case 4:
                     expense.setItem(informationFromFile);
                     break;
                 case 5:
                     expense.setAmount(informationFromFile);
-                    //bo w pliku siedzi jako string; teraz setAmount dostanie stringa - jak przy inpucie
                     break;
                 }
                 informationFromFile = "";
@@ -80,7 +78,6 @@ vector<Expense> ExpensesFile::getExpensesOfLoggedInUserFromFile(int idOfLoggedUs
         expenses.push_back(expense);
         }
     }
-
     return expenses;
 }
 

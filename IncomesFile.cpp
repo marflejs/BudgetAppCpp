@@ -25,7 +25,7 @@ bool IncomesFile::addIncomeToFile(Income income)
 
     xml_incomes.Save("incomes.xml");
 
-    return true;    //do poprawy, moze uwzglednic spr czy plik good
+    return true;
 }
 
 vector<Income> IncomesFile::getIncomesOfLoggedInUserFromFile(int idOfLoggedUser)
@@ -47,7 +47,7 @@ vector<Income> IncomesFile::getIncomesOfLoggedInUserFromFile(int idOfLoggedUser)
 
         if (atoi(MCD_2PCSZ(xml_incomes.GetChildData())) == idOfLoggedUser)
         {
-            xml_incomes.ResetChildPos(); //child byl na user id, a chce od poczatku - od transaction id
+            xml_incomes.ResetChildPos();
 
             while (xml_incomes.FindChildElem())
             {
@@ -63,14 +63,12 @@ vector<Income> IncomesFile::getIncomesOfLoggedInUserFromFile(int idOfLoggedUser)
                     break;
                 case 3:
                     income.setDate(informationFromFile);
-                    //bo w pliku siedzi jako string; teraz setDate dostanie stringa - jak przy inpucie
                     break;
                 case 4:
                     income.setItem(informationFromFile);
                     break;
                 case 5:
                     income.setAmount(informationFromFile);
-                    //bo w pliku siedzi jako string; teraz setAmount dostanie stringa - jak przy inpucie
                     break;
                 }
 
@@ -81,7 +79,6 @@ vector<Income> IncomesFile::getIncomesOfLoggedInUserFromFile(int idOfLoggedUser)
         incomes.push_back(income);
         }
     }
-
     return incomes;
 }
 

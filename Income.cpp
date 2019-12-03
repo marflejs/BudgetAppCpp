@@ -1,6 +1,4 @@
 #include "Income.h"
-#include "AuxiliaryMethods.h"
-#include <cstdio>
 
 void Income::setIncomeId(int newIncomeId)
 {
