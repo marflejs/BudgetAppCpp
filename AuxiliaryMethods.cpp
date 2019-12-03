@@ -166,6 +166,24 @@ string AuxiliaryMethods::getCurrentDate()
     return currentDate;
 }
 
+bool AuxiliaryMethods::isDateOk(string newDate)
+{
+    bool isDateOk = true;
+    int newYear, newMonth, newDay;
+    sscanf(newDate.c_str(), "%4d-%2d-%2d", &newYear, &newMonth, &newDay);
+
+    if(newYear < 2000 ||
+        newMonth <= 0 ||
+        newMonth > 12 ||
+        newDay <= 0 ||
+        newDay > AuxiliaryMethods::calculateNumberOfDaysInMonth(newMonth, newYear))
+        {
+            cout << "Niepoprawna data. Wprowadz ponownie" << endl;
+            isDateOk = false;
+        }
+
+    return isDateOk;
+}
 
 
 

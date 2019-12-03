@@ -8,25 +8,10 @@ void Transaction::setUserId(int newUserId)
         userId = newUserId;
 }
 
-bool Transaction::setDate(string newDate)
+void Transaction::setDate(string newDate)
 {
-    bool isDateOk = true;
-    int newYear, newMonth, newDay;
-    sscanf(newDate.c_str(), "%4d-%2d-%2d", &newYear, &newMonth, &newDay);
-
-    if(newYear > 2000 &&
-        newMonth > 0 &&
-        newMonth < 13 &&
-        newDay > 0 &&
-        newDay <= AuxiliaryMethods::calculateNumberOfDaysInMonth(newMonth, newYear))
+    if(AuxiliaryMethods::isDateOk)
         date = AuxiliaryMethods::convertDateStringToInt(newDate);
-    else
-    {
-        cout << "Niepoprawna data. Wprowadz ponownie" << endl;
-        isDateOk = false;
-    }
-
-    return isDateOk;
 }
 
 void Transaction::setItem(string newItem)

@@ -43,7 +43,6 @@ class TransactionManager
 
     vector<Income> balanceIncomes;
     vector<Expense> balanceExpenses;
-    // showBalance(int beginDate, int endDate);
     void showBalance();
     int beginDate, endDate;
 

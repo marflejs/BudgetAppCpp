@@ -26,6 +26,7 @@ public:
     static int calculateNumberOfDaysInMonth(int month, int year);
     static string convertDateFromIntToString(int dateAsInt);
     static string getCurrentDate();
+    static bool isDateOk(string newDate);
 };
 
 #endif
