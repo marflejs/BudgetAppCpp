@@ -1,4 +1,5 @@
 #include "TransactionManager.h"
+#include "DateManager.h"
 
 Income TransactionManager::getNewIncomeData()
 {
@@ -14,7 +15,7 @@ Income TransactionManager::getNewIncomeData()
         choice = AuxiliaryMethods::getChar();
         if(choice == 't')
         {
-            income.setDate(AuxiliaryMethods::getCurrentDate());
+            income.setDate(DateManager::getCurrentDate());
         }
         if(choice == 'n')
         {
@@ -23,7 +24,7 @@ Income TransactionManager::getNewIncomeData()
                 cout << "Podaj date: ";
                 newDate = AuxiliaryMethods::getLine();
                 income.setDate(newDate);
-            } while (AuxiliaryMethods::isDateOk(newDate) != true);
+            } while (DateManager::isDateOk(newDate) != true);
         }
     } while (choice != 't' && choice != 'n');
 
@@ -40,6 +41,7 @@ Income TransactionManager::getNewIncomeData()
 Expense TransactionManager::getNewExpenseData()
 {
     char choice;
+    string newDate = "";
 
     expense.setExpenseId((expensesFile.getIdOfLastTransactionFromFile() + 1));
     expense.setUserId(ID_OF_LOGGED_IN_USER);
@@ -50,15 +52,16 @@ Expense TransactionManager::getNewExpenseData()
         choice = AuxiliaryMethods::getChar();
         if(choice == 't')
         {
-            expense.setDate(AuxiliaryMethods::getCurrentDate());
+            expense.setDate(DateManager::getCurrentDate());
         }
         if(choice == 'n')
         {
             do
             {
                 cout << "Podaj date: ";
-                expense.setDate(AuxiliaryMethods::getLine());
-            } while (AuxiliaryMethods::isDateOk(AuxiliaryMethods::getLine()) != true);
+                newDate = AuxiliaryMethods::getLine();
+                expense.setDate(newDate);
+            } while (DateManager::isDateOk(newDate) != true);
         }
     } while (choice != 't' && choice != 'n');
 
@@ -112,16 +115,16 @@ void TransactionManager::addExpense()
 
 void TransactionManager::showBalanceOfCurrentMonth()
 {
-    string currentDate = AuxiliaryMethods::getCurrentDate();
-    beginDate = AuxiliaryMethods::convertDateStringToInt(currentDate.replace(8, 2, "01"));
-    endDate = AuxiliaryMethods::convertDateStringToInt(currentDate.replace(8, 2, "31"));
+    string currentDate = DateManager::getCurrentDate();
+    beginDate = DateManager::convertDateStringToInt(currentDate.replace(8, 2, "01"));
+    endDate = DateManager::convertDateStringToInt(currentDate.replace(8, 2, "31"));
 
     showBalance();
 }
 
 void TransactionManager::showBalanceOfLastMonth()
 {
-    string currentDate = AuxiliaryMethods::getCurrentDate();
+    string currentDate = DateManager::getCurrentDate();
 
     int lastMonth = AuxiliaryMethods::convertStringToInt(currentDate.substr(5, 2)) - 1;
 
@@ -147,17 +150,17 @@ void TransactionManager::showBalanceOfChosenTimeRange()
     {
         cout << "Podaj date poczatkowa: ";
         inputDate = AuxiliaryMethods::getLine();
-    } while (AuxiliaryMethods::isDateOk(inputDate) != true);
+    } while (DateManager::isDateOk(inputDate) != true);
 
-    beginDate = AuxiliaryMethods::convertDateStringToInt(inputDate);
+    beginDate = DateManager::convertDateStringToInt(inputDate);
 
     do
     {
         cout << "Podaj date koncowa: ";
         inputDate = AuxiliaryMethods::getLine();
-    } while (AuxiliaryMethods::isDateOk(inputDate) != true);
+    } while (DateManager::isDateOk(inputDate) != true);
 
-    endDate = AuxiliaryMethods::convertDateStringToInt(inputDate);
+    endDate = DateManager::convertDateStringToInt(inputDate);
 
     showBalance();
 }
@@ -184,7 +187,7 @@ void TransactionManager::showBalance()
     cout << "Data         Wartosc    Opis" << endl << endl;
     for(int i = 0; i < balanceIncomes.size(); i++)
     {
-        cout << AuxiliaryMethods::convertDateFromIntToString(balanceIncomes[i].getDate()) << "   " <<
+        cout << DateManager::convertDateFromIntToString(balanceIncomes[i].getDate()) << "   " <<
              AuxiliaryMethods::convertAmountIntToString(balanceIncomes[i].getAmount()) << "   " <<
              balanceIncomes[i].getItem() << endl;
     }
@@ -194,7 +197,7 @@ void TransactionManager::showBalance()
 
     for(int i = 0; i < balanceExpenses.size(); i++)
     {
-        cout << AuxiliaryMethods::convertDateFromIntToString(balanceExpenses[i].getDate()) << "   " <<
+        cout << DateManager::convertDateFromIntToString(balanceExpenses[i].getDate()) << "   " <<
              AuxiliaryMethods::convertAmountIntToString(balanceExpenses[i].getAmount()) << "   " <<
              balanceExpenses[i].getItem() << endl;
     }

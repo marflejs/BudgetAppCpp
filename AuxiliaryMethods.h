@@ -19,13 +19,6 @@ public:
     static int convertAmountStringToInt(string amountAsString);
     static string convertAmountIntToString(int amountAsInt);
     static string changeFirstLetterToCapitalAndOthersToSmallLetters(string text);
-
-    static bool isLeapYear(int year);
-    static int calculateNumberOfDaysInMonth(int month, int year);
-    static string getCurrentDate();
-    static bool isDateOk(string newDate);
-    static int convertDateStringToInt(string number);
-    static string convertDateFromIntToString(int dateAsInt);
 };
 
 #endif

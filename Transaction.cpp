@@ -1,5 +1,6 @@
 #include "Transaction.h"
 #include "AuxiliaryMethods.h"
+#include "DateManager.h"
 
 void Transaction::setUserId(int newUserId)
 {
@@ -9,8 +10,8 @@ void Transaction::setUserId(int newUserId)
 
 void Transaction::setDate(string newDate)
 {
-    if(AuxiliaryMethods::isDateOk)
-        date = AuxiliaryMethods::convertDateStringToInt(newDate);
+    if(DateManager::isDateOk)
+        date = DateManager::convertDateStringToInt(newDate);
 }
 
 void Transaction::setItem(string newItem)
