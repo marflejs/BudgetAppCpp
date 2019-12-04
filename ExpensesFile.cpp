@@ -1,5 +1,6 @@
 #include "ExpensesFile.h"
 #include "Markup.h"
+#include "DateManager.h"
 
 bool ExpensesFile::addExpenseToFile(Expense expense)
 {
@@ -19,7 +20,7 @@ bool ExpensesFile::addExpenseToFile(Expense expense)
     xml_expenses.IntoElem();
     xml_expenses.AddElem("ExpenseId", expense.getExpenseId());
     xml_expenses.AddElem("UserId", expense.getUserId());
-    xml_expenses.AddElem("Date", AuxiliaryMethods::convertDateFromIntToString(expense.getDate()));
+    xml_expenses.AddElem("Date", DateManager::convertDateFromIntToString(expense.getDate()));
     xml_expenses.AddElem("Item", expense.getItem());
     xml_expenses.AddElem("Amount", AuxiliaryMethods::convertAmountIntToString(expense.getAmount()));
 

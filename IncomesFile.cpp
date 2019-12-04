@@ -1,5 +1,6 @@
 #include "IncomesFile.h"
 #include "Markup.h"
+#include "DateManager.h"
 
 bool IncomesFile::addIncomeToFile(Income income)
 {
@@ -19,7 +20,7 @@ bool IncomesFile::addIncomeToFile(Income income)
     xml_incomes.IntoElem();
     xml_incomes.AddElem("IncomeId", income.getIncomeId());
     xml_incomes.AddElem("UserId", income.getUserId());
-    xml_incomes.AddElem("Date", AuxiliaryMethods::convertDateFromIntToString(income.getDate()));
+    xml_incomes.AddElem("Date", DateManager::convertDateFromIntToString(income.getDate()));
     xml_incomes.AddElem("Item", income.getItem());
     xml_incomes.AddElem("Amount", AuxiliaryMethods::convertAmountIntToString(income.getAmount()));
 
