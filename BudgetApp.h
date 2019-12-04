@@ -31,12 +31,13 @@ public:
     void logInUser();
     void changePasswordOfLoggedInUser();
     void logOffUser();
-    void addIncome();
-    void addExpense();
     bool isUserLoggedIn();
+
     char chooseOptionFromMainMenu();
     char chooseOptionFromUserMenu();
 
+    void addIncome();
+    void addExpense();
     void showBalanceOfCurrentMonth();
     void showBalanceOfLastMonth();
     void showBalanceOfChosenTimeRange();

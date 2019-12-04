@@ -7,15 +7,14 @@
 
 #include "Income.h"
 #include "AuxiliaryMethods.h"
-#include "TransactionsFile.h"
 
 using namespace std;
 
-class IncomesFile : public TransactionsFile
+class IncomesFile
 {
 public:
-    IncomesFile(string fileName) : TransactionsFile(fileName) {
-        idOfLastTransaction = 0;
+    IncomesFile(string fileName){
+        int idOfLastTransaction = 0;
     };
 
     bool addIncomeToFile(Income income);

@@ -7,15 +7,14 @@
 
 #include "Expense.h"
 #include "AuxiliaryMethods.h"
-#include "TransactionsFile.h"
 
 using namespace std;
 
-class ExpensesFile : public TransactionsFile
+class ExpensesFile
 {
 public:
-    ExpensesFile(string fileName) : TransactionsFile(fileName) {
-        idOfLastTransaction = 0;
+    ExpensesFile(string fileName){
+        int idOfLastTransaction = 0;
     };
 
     bool addExpenseToFile(Expense expense);
